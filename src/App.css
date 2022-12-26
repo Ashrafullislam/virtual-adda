@@ -1,7 +1,10 @@
 .App {
   text-align: center;
 }
-
+.active{
+  background-color: rgb(240, 238, 238);
+  color: rgba(0, 0, 0, 0.671);
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
