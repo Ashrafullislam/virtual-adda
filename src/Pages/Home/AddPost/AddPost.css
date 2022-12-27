@@ -1,4 +1,7 @@
-
+.post-modal{
+     display: flex;
+     justify-content: start;
+}
 .wrapper{
   
     width:100%;
@@ -29,8 +32,8 @@
     }
       input[type='file']{
   
-        height:50px;
-        width:50px;
+        height:40px;
+        width:40px;
         position:absolute;
         top:0;
         left:0;
