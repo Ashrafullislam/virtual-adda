@@ -1,0 +1,11 @@
+.left-side{
+    
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    gap: 30px ;
+}
+.input-file{
+    
+}
