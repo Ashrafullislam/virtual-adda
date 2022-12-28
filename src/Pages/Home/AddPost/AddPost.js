@@ -72,13 +72,13 @@ const AddPost = () => {
             <div className="flex items-center justify-around">
             <div>
              <div class="wrapper">
-               <div class="file-upload" >
+               <div class="file-upload flex flex-row-reverse items-center gap-2">
                 <input type="file" name="image" />
-                 <FaImage/>
+              
                   </div>
                  </div>
-                 <label  > Upload image </label>
             </div>
+
             <div className="flex gap-3 items-center">
                 <FaClock className="text-2xl text-zinc-700" />
                  <input  value={'Post'} type='submit' className="btn btn-primary text-white px-6 py-0 " />

@@ -1,12 +1,15 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import {  FaPager, FaSignInAlt, FaUser, FaUserCircle } from 'react-icons/fa';
+import React, { useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import {  FaPager, FaSignInAlt, FaSignOutAlt, FaUser, FaUserCircle } from 'react-icons/fa';
 import { AiFillHome } from "react-icons/ai";
+import { AuthContext } from './../../../AuthProvider/AuthProvider';
 
 
 
 const Navbar = () => {
 
+  const {user,LogOut} = useContext(AuthContext);
+  console.log(user)
 
 
   const menu = 
@@ -14,7 +17,15 @@ const Navbar = () => {
   <li> <NavLink to="/home" > <AiFillHome className='text-2xl text-blue-700' />Home </NavLink> </li>
   <li> <NavLink to="/media" > <FaPager className='text-2xl text-blue-700' /> Media </NavLink> </li>
   <li> <NavLink to="/about" > <FaUserCircle className='text-2xl text-blue-700' /> About </NavLink> </li>
+ {user?
+  <li> <NavLink to="/login" onClick={LogOut} >   <FaSignOutAlt className='text-2xl text-blue-700' /> LogOut </NavLink> </li>
+  :
   <li> <NavLink to="/login" >   <FaSignInAlt  className='text-2xl text-blue-700' /> Login </NavLink> </li>
+ }
+  
+
+
+
   </>
     return (
         <div>
@@ -28,7 +39,7 @@ const Navbar = () => {
         {menu}
       </ul>
     </div>
-    <a className="btn btn-ghost normal-case text-xl"> <span className='text-3xl italic font-bold text-blue-700'>V</span>irtual <span className='text-blue-700 font-bold italic text-2xl'>M</span>  <span className='test'>eet</span> </a>
+    <Link className="btn btn-ghost normal-case text-xl"> <span className='text-3xl italic font-bold text-blue-700'>V</span>irtual <span className='text-blue-700 font-bold italic text-2xl'>M</span>  <span className='test'>eet</span> </Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
