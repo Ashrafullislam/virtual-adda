@@ -1,13 +1,13 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateEmail, updateProfile } from "firebase/auth";
 import app from './../Firebase/Firebase.config';
 
 const auth = getAuth(app);
 export const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
- const [user,setUser]  = useState(null);
- const [loading,setLoading] = useState(false);
+    const [loading,setLoading] = useState(true);
+    const [user,setUser]  = useState(null);
  
 
  // create user by email and password 
@@ -52,6 +52,12 @@ const UpdateUser = (userInfo) => {
     return updateProfile(auth.currentUser, userInfo)
 }
 
+// update user email 
+const UpdateUserEmail = (userEmail) => {
+    setLoading(true)
+    return updateEmail(auth.currentUser,userEmail)
+}
+
 useEffect(()=> {
     const unsubscribe = onAuthStateChanged(auth,currentUser=> {
         setUser(currentUser)
@@ -81,7 +87,8 @@ const userAuth = {
     LogOut,
     VerifyUser,
     PasswordReset,
-    UpdateUser
+    UpdateUser,
+    UpdateUserEmail
 }
 
 return (

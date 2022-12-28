@@ -1,4 +1,4 @@
-.left-side{
+/* .left-side{
     
 }
 .container{
@@ -9,3 +9,11 @@
 .input-file{
     
 }
+
+@media screen and(min-width:300px) and(max-width:920px){
+    .container{
+        display: flex;
+        flex-direction:row;
+        gap: 30px ;
+    }
+} */

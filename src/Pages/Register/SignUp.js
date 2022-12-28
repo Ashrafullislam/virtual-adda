@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from './../../AuthProvider/AuthProvider';
 
-
+ 
  const SignUpForm = () => {
 
     const {user,createUser,GoogleLogIn,UpdateUser,VerifyUser} = useContext(AuthContext)
@@ -14,6 +14,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
     const [signUpError , setSignUpError] = useState('')
     const navigate = useNavigate();
     const imageHost = process.env.REACT_APP_imagehosting;
+    
     const {register, formState:{errors}, handleSubmit} = useForm ();
       // useToken part 
     const [createdUserEmail,setCreatedUserEmail] = useState('')
@@ -25,22 +26,24 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
 
   // %%%%%%   handle sign up form  %%%%%%%%% 
     const handleSignUp = (data,e) => {
-   
+      // const url = `https://api.imgbb.com/1/upload?key=${imageHost}`
+
     createUser(data.email, data.password)
     // console.log(userType)
     .then(result => {
        const  userResult = result.user ;
-       toast.success('Your account created successfull ')
-       const userInfo = {displayName:data.name,photoURL:data.photoURL}
-       console.log(userInfo,'signup ')
+       const userInfo = {displayName:data.name}
        UpdateUser(userInfo)
         .then(()=> { 
-        // save user function call for created user data save in  database    
-        //  saveUser(data.name,data.email,role,verify)
-        })
-        .catch (err => { console.log(err.message)  } )
+        // save user function call for created user data save in  database   
+        VerifyUser(data.email)
+        toast.success('Your account created successfull ')
         e.target.reset()
         navigate('/')
+        //  saveUser(data.name,data.email)
+        })
+        .catch (err => { console.log(err.message)  } )
+     
         // user verify with  email send from firebase
     })
     .catch(error => { 
@@ -72,7 +75,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
 
   }
 
-// user Sign up  by google 
+   // user Sign up  by google 
     const GoogleLogin = () => {
         GoogleLogIn(googleProvider)
         .then(result => {
@@ -89,6 +92,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
             setSignUpError(error)
            
         })
+
                // make a function to save user info in database and get create token 
     // const googleSignSaveUser = (name,email) => {
     //     const user = {name,email,role:'buyer'};
@@ -108,6 +112,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
   
     //     })
     // }
+
 
     }
  
@@ -137,20 +142,20 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
       
 
        
-        {/* <div div class="wrapper">
-               <div class="file-upload" >
+        {/* <div div className="wrapper">
+               <div className="file-upload" >
                <label  > Upload image </label>
 
-                <input type="file" name="photoURL" />
+                <input type="file" name="userImg" />
                  
                   </div>
                  
             </div>   */}
 
-        <label className="label"> <span className="">  Upload photo </span> </label>
-        <input  type="file" {...register ("photoURL",{required: true })}
+        {/* <label className="label"> <span className="">  Upload photo </span> </label>
+        <input  type="file" {...register ("userImg",{required: true })}
          className="input input-bordered w-full text-black "/>
-         {errors.photoURL && <p role='alert' className='text-red-600'> {errors.photoURL.message}  </p>}
+         {errors.userImg && <p role='alert' className='text-red-600'> {errors.userImg.message}  </p>} */}
 
         <input type="Submit"  value={'Sign up '}className="btn btn-primary mt-4 w-full" />
         <p className='my-2'> Already have an account ? <Link to='/login' className='text-blue-700 font-bold ' >Log in  here  </Link> </p>

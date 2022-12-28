@@ -1,12 +1,16 @@
 import React from 'react';
+import AboutMeInfo from './AboutMeInfo';
 
 const About = () => {
     return (
-        <div>
-            <h2> About me </h2>
-            
+        <div className=''>
+           
+             <div>
+                <AboutMeInfo> </AboutMeInfo>  
+
+             </div> 
         </div>
     );
 };
 
-export default About;
+export default About;  
