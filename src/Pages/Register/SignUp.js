@@ -1,7 +1,7 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from './../../AuthProvider/AuthProvider';
 
@@ -11,9 +11,11 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
     const {user,createUser,GoogleLogIn,UpdateUser,VerifyUser} = useContext(AuthContext)
     const googleProvider = new GoogleAuthProvider() ;
     const [error,setError] = useState(null)
-    const [signUpError , setSignUpError] = useState('')
     const navigate = useNavigate();
     const imageHost = process.env.REACT_APP_imagehosting;
+    const location = useLocation();
+    const from  = location.state?.from?.pathname || "/"
+
     
     const {register, formState:{errors}, handleSubmit} = useForm ();
       // useToken part 
@@ -26,7 +28,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
 
   // %%%%%%   handle sign up form  %%%%%%%%% 
     const handleSignUp = (data,e) => {
-      // const url = `https://api.imgbb.com/1/upload?key=${imageHost}`
+      // const url = `https://api.imgbb.com/1/upload?key=${imageHost}` 
 
     createUser(data.email, data.password)
     // console.log(userType)
@@ -40,7 +42,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
         toast.success('Your account created successfull ')
         e.target.reset()
         navigate('/')
-        //  saveUser(data.name,data.email)
+         saveUser(data.name,data.email)
         })
         .catch (err => { console.log(err.message)  } )
      
@@ -49,31 +51,43 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
     .catch(error => { 
         const err = error.message ;
         console.log(err)
-        setSignUpError(err)
+        setError(err)
     })
    
     
-    // const saveUser = (name,email) =>  {
-    //     const user = {name,email};
-    //     fetch(`https://computer-reseller-server.vercel.app/users`,{
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body:JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(userData => {
-    //     if(userData.acknowledged){
-    //         console.log(userData)
-    //         setCreatedUserEmail(email)
-    //     }
+    const saveUser = (name,email) =>  {
+        const education = null ;
+        const institute = null ;
+        const address = null  ;
+        const userImg = null ;
+        const userBanner = null ;
+        const user = {name,email,education,institute,address,userImg,userBanner};
+        fetch(`http://localhost:5000/usersData`,{
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body:JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(userData => {
+        if(userData.acknowledged){
+            setCreatedUserEmail(email)
+        }
 
-    //     })
-       
-    // }
+        })
+        .catch(err => {
+          const error = err.message;
+          setError(error);
+        })
+
+    }
 
   }
+
+
+
+
 
    // user Sign up  by google 
     const GoogleLogin = () => {
@@ -82,36 +96,45 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
             const userResult = result.user ;
             const email = userResult.email;
             const name = userResult.displayName;
-            
-            // googleSignSaveUser(name,email)
+            googleSignSaveUser(name,email)
             toast.success(" Google Log in successfull ")
+
         })
         .catch(err => {
             const error = err.message ;
             console.log(error)
-            setSignUpError(error)
+            setError(error)
            
         })
 
-               // make a function to save user info in database and get create token 
-    // const googleSignSaveUser = (name,email) => {
-    //     const user = {name,email,role:'buyer'};
-    //     fetch(`https://computer-reseller-server.vercel.app/users`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body:JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         console.log('save  user ',data)
-    //         if(data.acknowledged){
-    //             setCreatedUserEmail(email)
-    //         }                
+    // make a function to save user info in database  by google sign in
+    const googleSignSaveUser = (name,email) => {
+      const education = null ;
+      const institute = null ;
+      const address = null  ;
+      const userImg = null ;
+      const userBanner = null ;
+        const user = {name,email,education,institute,address,userImg,userBanner};
+        fetch(`http://localhost:5000/usersData`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body:JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.acknowledged){
+                setCreatedUserEmail(email)
+                
+                
+            }                
   
-    //     })
-    // }
+        })
+        .catch(err =>  {
+          setError(err.message)
+        })
+    }
 
 
     }
@@ -156,7 +179,9 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
         <input  type="file" {...register ("userImg",{required: true })}
          className="input input-bordered w-full text-black "/>
          {errors.userImg && <p role='alert' className='text-red-600'> {errors.userImg.message}  </p>} */}
-
+        {
+          error && <p className='text-error'> {error} </p>
+        }
         <input type="Submit"  value={'Sign up '}className="btn btn-primary mt-4 w-full" />
         <p className='my-2'> Already have an account ? <Link to='/login' className='text-blue-700 font-bold ' >Log in  here  </Link> </p>
         <div className="divider ">OR</div>

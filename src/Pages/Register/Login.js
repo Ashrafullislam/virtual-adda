@@ -127,7 +127,7 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
          {
             signUpError && <p className='text-red-600'> {signUpError} </p>
          }
-        <input type="Submit"  value={'Sign up '}className="btn btn-primary mt-4 w-full" />
+        <input type="Submit"  value={'Log in '}className="btn btn-primary mt-4 w-full" />
         <p className='my-2'> You  have  no account ? <Link to='/signup' className='text-blue-700 font-bold  ' >Sign  up  here  </Link> </p>
         <div className="divider ">OR</div>
       
