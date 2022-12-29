@@ -14,6 +14,12 @@ const AboutMeInfo = () => {
     const {register, formState:{errors}, handleSubmit} = useForm();
     const imageHostKey = process.env.REACT_APP_IMAGEBB_API_KEY;
     const [load,setLoad] = useState('')
+
+// handlar for confiramtion 
+const imageUpdateMessage = () => {
+    toast("Update processing now  , please waite for confirmation  message ")
+}
+
 // user image upload handlar 
 const userImageUpdateHandlar =  (data,event)  => {
     event.preventDefault()
@@ -29,14 +35,26 @@ const userImageUpdateHandlar =  (data,event)  => {
     })
     .then(res => res.json())
     .then(imgData => {
-        if(loading){
-            setLoad('Loading')
-        }
+        
         if(imgData.success){
             const imageUrl = imgData.data.url;
+            const userImg = {userImg:imageUrl}
             toast.success("Profile picture has been uploaded")
-
-
+            fetch(`http://localhost:5000/updateUser/${user?.email}`,{
+                method:'POST',
+                headers:{
+                    'Content-Type':"application/json"
+                },
+                body: JSON.stringify(userImg)
+                
+            })
+            .then(res => res.json())
+            .then(updateImage => {
+                if(updateImage.modifiedCount > 0){
+                    toast.success('Successfully profile has been changed')
+                }
+                console.log(updateImage)
+            } )
             console.log(imageUrl)
         }
         // console.log(imgData)
@@ -110,7 +128,7 @@ if(loading){
               <FaImage className='text-primary text-2xl ml-7' />
               <input type='file'{...register('userImage')}/>
               </div>
-              <input type='submit' className='btn bg-primary btn-sm border-none self-end text-white' value="  Save Change " />
+              <input type='submit' onClick={imageUpdateMessage} className='btn bg-primary btn-sm border-none self-end text-white' value="  Save Change " />
             </div>
           
             

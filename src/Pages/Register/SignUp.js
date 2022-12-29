@@ -26,7 +26,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
     //     navigate('/')
     // }
 
-  // %%%%%%   handle sign up form  %%%%%%%%% 
+  //====== %%%%%%   handle sign up form  %%%%%%%%%=======//
     const handleSignUp = (data,e) => {
       // const url = `https://api.imgbb.com/1/upload?key=${imageHost}` 
 
@@ -80,12 +80,9 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
           const error = err.message;
           setError(error);
         })
-
     }
 
   }
-
-
 
 
 
@@ -114,7 +111,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
       const address = null  ;
       const userImg = null ;
       const userBanner = null ;
-        const user = {name,email,education,institute,address,userImg,userBanner};
+      const user = {name,email,education,institute,address,userImg,userBanner};
         fetch(`http://localhost:5000/usersData`, {
             method: 'POST',
             headers: {
@@ -126,8 +123,8 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
         .then(data => {
             if(data.acknowledged){
                 setCreatedUserEmail(email)
-                
-                
+                navigate( from ,{replace:true});
+
             }                
   
         })
@@ -175,10 +172,6 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
                  
             </div>   */}
 
-        {/* <label className="label"> <span className="">  Upload photo </span> </label>
-        <input  type="file" {...register ("userImg",{required: true })}
-         className="input input-bordered w-full text-black "/>
-         {errors.userImg && <p role='alert' className='text-red-600'> {errors.userImg.message}  </p>} */}
         {
           error && <p className='text-error'> {error} </p>
         }

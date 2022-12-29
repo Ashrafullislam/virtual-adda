@@ -11,7 +11,6 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
     const {user,GoogleLogIn,LogInUser} = useContext(AuthContext)
     const googleProvider = new GoogleAuthProvider() ;
     const [error,setError] = useState(null)
-    const [signUpError , setSignUpError] = useState('')
     const navigate = useNavigate()
     const {register, formState:{errors}, handleSubmit} = useForm ();
     const location = useLocation();
@@ -40,29 +39,11 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
     .catch(error => { 
         const err = error.message ;
         console.log(err)
-        setSignUpError(err)
+        setError(err)
     })
 
     
-    // const saveUser = (name,email) =>  {
-    //     const user = {name,email};
-    //     fetch(`https://computer-reseller-server.vercel.app/users`,{
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body:JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(userData => {
-    //     if(userData.acknowledged){
-    //         console.log(userData)
-    //         setCreatedUserEmail(email)
-    //     }
 
-    //     })
-       
-    // }
   }
 
 // user Sign up  by google 
@@ -75,32 +56,42 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
             
             // googleSignSaveUser(name,email)
             toast.success(" Google Log in successfull ")
+            googleSignSaveUser(name,email)
         })
         .catch(err => {
             const error = err.message ;
             console.log(error)
-            setSignUpError(error)
+            setError(error)
            
         })
-               // make a function to save user info in database and get create token 
-    // const googleSignSaveUser = (name,email) => {
-    //     const user = {name,email,role:'buyer'};
-    //     fetch(`https://computer-reseller-server.vercel.app/users`, {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body:JSON.stringify(user)
-    //     })
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         console.log('save  user ',data)
-    //         if(data.acknowledged){
-    //             setCreatedUserEmail(email)
-    //         }                
+   // make a function to save user info in database and get create token 
+    const googleSignSaveUser = (name,email) => {
+      const education = null ;
+      const institute = null ;
+      const address = null  ;
+      const userImg = null ;
+      const userBanner = null ;
+      const user = {name,email,education,institute,address,userImg,userBanner};
+        
+        fetch(`http://localhost:5000/usersData`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body:JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log('save  user ',data)
+            if(data.acknowledged){
+                setCreatedUserEmail(email)
+                navigate( from ,{replace:true});
+
+
+            }                
   
-    //     })
-    // }
+        })
+    }
     }
  
     return (
@@ -125,7 +116,7 @@ import { AuthContext } from '../../AuthProvider/AuthProvider';
 
       
          {
-            signUpError && <p className='text-red-600'> {signUpError} </p>
+           Error && <p className='text-red-600'> {error} </p>
          }
         <input type="Submit"  value={'Log in '}className="btn btn-primary mt-4 w-full" />
         <p className='my-2'> You  have  no account ? <Link to='/signup' className='text-blue-700 font-bold  ' >Sign  up  here  </Link> </p>
