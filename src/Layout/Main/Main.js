@@ -10,11 +10,11 @@ const Main = () => {
         <div className='' >
             <Navbar > </Navbar>
             <section className=" container w-11/12 mx-auto lg:flex mt-6 gap-8"  >
-            <div className='lg:w-1/4 md:w-11/12 w-11/12 mx-auto left-side h-56 bg-white'>
+            <div className='lg:w-1/4 md:w-11/12 w-11/12 mx-auto left-side h-56 rounded-lg bg-white'>
                <LeftSideUserInfo> </LeftSideUserInfo>             
             </div>
 
-            <div className='lg:w-3/4 md:w-11/12 w-11/12 mx-auto bg-white lg:mt-0 mt-8 '> 
+            <div className='lg:w-3/4 md:w-11/12 w-11/12 mx-auto h-auto  lg:mt-0 mt-8 rounded-lg '> 
             <Outlet > </Outlet>
 
             </div>

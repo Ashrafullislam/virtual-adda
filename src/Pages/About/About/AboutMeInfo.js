@@ -23,7 +23,7 @@ import './About.css';
      queryKey:['user'],
      queryFn: async() => {
        const res = await fetch(url)
-       const data = res.json()
+       const data = res.json() ;
        return data ;
      }        
   })
@@ -148,7 +148,7 @@ const userImageUpdateHandlar =  (data,event)  => {
     <section>
 
             {/* banner of about me  */}
-        <div className='w-full bg-info  h-64   relative'  >
+        <div className='w-full bg-info  h-56   relative'  >
              <img src={users?.userBanner} alt="Cover Img "  className='w-full h-full ' />
 
            <label  htmlFor="userImageBannerModal " className='bg-zinc-200 text-neutral float-right h-12 w-12 hover:bg-zinc-400 rounded-full bottom-3/4 relative border-none btn mr-4 '> <FaPen className='text-xl ' /> </label> 

@@ -8,7 +8,7 @@ const About = () => {
    
  
     return (
-        <div className=''>
+        <div className='bg-white rounded-lg'>
            
              <div>
                 <AboutMeInfo > </AboutMeInfo>  
