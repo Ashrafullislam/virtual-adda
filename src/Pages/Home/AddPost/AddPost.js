@@ -16,7 +16,7 @@ const AddPost = () => {
   const { user } = useContext(AuthContext);
 
   // get about me information from  database
-  const url = `http://localhost:5000/aboutme/${user?.email}`;
+  const url = `https://virtual-meet-server.vercel.app/aboutme/${user?.email}`;
   const {
     data: users = [], isLoading, refetch,} = useQuery({
     queryKey: ["user"],

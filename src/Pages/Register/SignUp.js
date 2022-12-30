@@ -62,7 +62,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
         const userImg = null ;
         const userBanner = null ;
         const user = {name,email,education,institute,address,userImg,userBanner};
-        fetch(`http://localhost:5000/usersData`,{
+        fetch(`https://virtual-meet-server.vercel.app/usersData`,{
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -112,7 +112,7 @@ import { AuthContext } from './../../AuthProvider/AuthProvider';
       const userImg = null ;
       const userBanner = null ;
       const user = {name,email,education,institute,address,userImg,userBanner};
-        fetch(`http://localhost:5000/usersData`, {
+        fetch(`https://virtual-meet-server.vercel.app/usersData`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

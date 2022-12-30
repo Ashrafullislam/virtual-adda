@@ -22,7 +22,7 @@ const AddPostModal = () => {
 
 
   // get about me information from  database
-  const url = `http://localhost:5000/aboutme/${user?.email}`;
+  const url = `https://virtual-meet-server.vercel.app/aboutme/${user?.email}`;
   const {
     data: users = [], isLoading, refetch } = useQuery({
     queryKey: ["user"],
@@ -67,7 +67,7 @@ const AddPostModal = () => {
          const hostingPostImg = hostImg.data.url;
          const postInfoData = {hostingPostImg,message,postedUserImg,postedUserName,date,postedUserId,postedUserEamil}
          console.log(postInfoData,'postinfodata')
-         fetch(`http://localhost:5000/postdata`,{
+         fetch(`https://virtual-meet-server.vercel.app/postdata`,{
           method:'POST',
           headers:{
             'Content-type':'application/json',

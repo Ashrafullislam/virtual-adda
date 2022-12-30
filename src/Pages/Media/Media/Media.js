@@ -8,7 +8,7 @@ const Media = () => {
 
 // load all post data from database by react-query 
 
-const url = `http://localhost:5000/postdata`;
+const url = `https://virtual-meet-server.vercel.app/postdata`;
 
  const {data:allPosts = [], isLoading,refetch} = useQuery({
     queryKey:['postdata'],

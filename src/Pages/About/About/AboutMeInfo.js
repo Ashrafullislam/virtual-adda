@@ -18,7 +18,7 @@ import './About.css';
 
 
     // get all  users from database and set it ui 
-  const url = `http://localhost:5000/aboutme/${user?.email}`;
+  const url = `https://virtual-meet-server.vercel.app/aboutme/${user?.email}`;
   const {data:users = [], isLoading,refetch} = useQuery({
      queryKey:['user'],
      queryFn: async() => {
@@ -59,7 +59,7 @@ const userImageUpdateHandlar =  (data,event)  => {
             const userImg = {userImg:imageUrl}
             toast.success("Profile picture has been uploaded")
             // send user profile image link in  database 
-            fetch(`http://localhost:5000/updateUser/${user?.email}`,{
+            fetch(`https://virtual-meet-server.vercel.app/updateUser/${user?.email}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':"application/json"
@@ -109,7 +109,7 @@ const userImageUpdateHandlar =  (data,event)  => {
         const bannerImg = imgData.data.url;
         const userBanner = {userBanner:bannerImg}
         // send new banner image in backend to database 
-          fetch(`http://localhost:5000/updateUser/coverphoto/${user?.email}`,{
+          fetch(`https://virtual-meet-server.vercel.app/updateUser/coverphoto/${user?.email}`,{
                 method:'POST',
                 headers:{
                     'Content-Type':"application/json"
