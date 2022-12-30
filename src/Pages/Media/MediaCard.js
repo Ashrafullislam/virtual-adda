@@ -22,15 +22,10 @@
           <p> Posted Date: {date} </p>
         </div>
         <figure>
-          <img src={hostingPostImg} className="w-full  max-h-[70vh] " alt=" " />
+          <img src={hostingPostImg} className="w-full  h-full" alt=" " />
         </figure>
         <div>
-      <form onSubmit={handleReact} className="form-control">
-  <label className="cursor-pointer label">
-    <span className="label-text">Remember me</span>
-    <input type="text"  name="like"  className="checkbox checkbox-secondary" />
-  </label>
-      </form>
+  
         </div>
       </div>
       
