@@ -1,12 +1,9 @@
  import React from "react";
+import LoveReact from "./Reactions/LoveReact";
 
  const MediaCard = ({postData}) => {
+ const {hostingPostImg,date,reactions, message, postedUserId,postedUserEamil,postedUserName,_id,postedUserImg} = postData ;
  console.log(postData)
- const {hostingPostImg,date, message, postedUserId,postedUserEamil,postedUserName,_id,postedUserImg} = postData ;
- const handleReact = (e) => {
-   const like = e.form.target.like.value ;
-   console.log(like)
- }
   return (
     <div className="mt-5 ">
       <div className="card w-full bg-white">
@@ -24,6 +21,7 @@
         <figure>
           <img src={hostingPostImg} className="w-full  h-full" alt=" " />
         </figure>
+        <LoveReact key={_id} _id={_id} reactions = {reactions} > </LoveReact>
         <div>
   
         </div>
